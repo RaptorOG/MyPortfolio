@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #09090a;
+  --bg2: #111113;
+  --bg3: #18181b;
+  --bg4: #1f1f23;
+  --amber: #e8a030;
+  --amber2: #f5b84a;
+  --amber-dim: rgba(232, 160, 48, 0.12);
+  --green: #3ddc84;
+  --green-dim: rgba(61, 220, 132, 0.1);
+  --text: #e2e0db;
+  --muted: #6b6966;
+  --muted2: #908d89;
+  --border: rgba(255, 255, 255, 0.07);
+  --border2: rgba(255, 255, 255, 0.13);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Light mode overrides */
+.light {
+  --bg: #fafaf9;
+  --bg2: #f5f4f2;
+  --bg3: #ebe9e5;
+  --bg4: #e0ded9;
+  --text: #1c1c1e;
+  --muted: #6b6966;
+  --muted2: #525150;
+  --border: rgba(0, 0, 0, 0.1);
+  --border2: rgba(0, 0, 0, 0.18);
+  --amber: #c77a20;
+  --amber2: #a86310;
+  --amber-dim: rgba(199, 122, 32, 0.1);
+  --green: #2a9d5c;
+  --green-dim: rgba(42, 157, 92, 0.1);
+}
+
+.light body,
+.light {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Light mode noise overlay - darker noise for visibility */
+.light body::before {
+  opacity: 0.025;
+}
+
+/* Noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.018;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* Blinking cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor {
+  animation: blink 1s step-end infinite;
+  color: var(--amber);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero entry animations */
+@keyframes up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+.anim-up-1 { opacity: 0; animation: up 0.5s 0.1s forwards; }
+.anim-up-2 { opacity: 0; animation: up 0.6s 0.2s forwards; }
+.anim-up-3 { opacity: 0; animation: up 0.6s 0.3s forwards; }
+.anim-up-4 { opacity: 0; animation: up 0.5s 0.4s forwards; }
+.anim-up-5 { opacity: 0; animation: up 0.5s 0.5s forwards; }
+
+/* Back to top button */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
